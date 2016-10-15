@@ -1,0 +1,13 @@
+options:
+  verbose: false
+syncs:
+  piwik-mariadb-vol:
+    src: ./mariadb
+    dest: /var/lib/mysql
+    sync_strategy: 'unison'
+    sync_userid: '999'
+  piwik-source-vol:
+    src: ../Piwik
+    dest: /var/www/html
+    sync_strategy: 'unison'
+    sync_userid: '33'
