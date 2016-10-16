@@ -3,7 +3,7 @@ services:
   piwik:
     image: piwik
     volumes:
-      - piwik-source-vol:/var/www/html
+      - ../piwik:/var/www/html
       - ./piwik.php.ini:/usr/local/etc/php/conf.d/piwik.php.ini
     depends_on:
       - mariadb
@@ -14,7 +14,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: pass
     volumes:
-      - piwik-mariadb-vol:/var/lib/mysql
+      - ./mariadb:/var/lib/mysql
   nginx:
     image: bitnami/nginx
     container_name: piwik-nginx
@@ -23,12 +23,7 @@ services:
       - piwik
     volumes:
       - ./vhost.conf:/bitnami/nginx/conf/vhosts/piwik.conf
-      - piwik-source-vol:/var/www/html
+      - ../piwik:/var/www/html
     ports:
       - "3000:80"
 
-volumes:
-  piwik-mariadb-vol:
-    external: true
-  piwik-source-vol:
-    external: true
