@@ -2,11 +2,16 @@ version: '2'
 services:
   piwik:
     image: piwik
+    restart: always
     volumes:
-      - ../piwik:/var/www/html
+      - ../piwik:/usr/src/piwik
       - ./piwik.php.ini:/usr/local/etc/php/conf.d/piwik.php.ini
+    working_dir: /usr/src/piwik
     depends_on:
       - mariadb
+    ports:
+      - "3000:3000"
+    command: php -S piwik:3000
   mariadb:
     image: mariadb
     container_name: piwik-mariadb
@@ -15,15 +20,3 @@ services:
       MYSQL_ROOT_PASSWORD: pass
     volumes:
       - ./mariadb:/var/lib/mysql
-  nginx:
-    image: bitnami/nginx
-    container_name: piwik-nginx
-    restart: always
-    links:
-      - piwik
-    volumes:
-      - ./vhost.conf:/bitnami/nginx/conf/vhosts/piwik.conf
-      - ../piwik:/var/www/html
-    ports:
-      - "3000:80"
-
