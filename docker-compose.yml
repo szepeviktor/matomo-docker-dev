@@ -11,7 +11,7 @@ services:
       - mariadb
     ports:
       - "3000:3000"
-    command: php -S piwik:3000
+    command: -S piwik:3000
     entrypoint: php
   mariadb:
     image: mariadb
