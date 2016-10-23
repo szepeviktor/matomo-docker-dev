@@ -2,7 +2,6 @@ version: '2'
 services:
   piwik:
     image: piwik
-    restart: always
     volumes:
       - ${PIWIK_HOME}:/usr/src/piwik
       - ./piwik.php.ini:/usr/local/etc/php/conf.d/piwik.php.ini
