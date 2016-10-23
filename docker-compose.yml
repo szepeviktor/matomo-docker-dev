@@ -4,7 +4,7 @@ services:
     image: piwik
     restart: always
     volumes:
-      - ../piwik:/usr/src/piwik
+      - ${PIWIK_HOME}:/usr/src/piwik
       - ./piwik.php.ini:/usr/local/etc/php/conf.d/piwik.php.ini
     working_dir: /usr/src/piwik
     depends_on:
