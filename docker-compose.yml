@@ -16,7 +16,6 @@ services:
   mariadb:
     image: mariadb
     container_name: piwik-mariadb
-    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: pass
     volumes:
