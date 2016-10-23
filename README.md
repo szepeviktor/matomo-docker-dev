@@ -18,3 +18,26 @@ PIWIK_HOME=/path/to/your/piwik ./console help
 ```
 
 You may find it helpful to define `PIWIK_HOME` in your bash profile.
+
+To run tests:
+
+First add the following to your config.ini.php:
+
+```
+[tests]
+http_host   = piwik
+```
+
+then run:
+
+```
+PIWIK_HOME=/path/to/your/piwik ./console tests:run
+```
+
+(NOTE: some tests currently don't pass inside the container)
+
+To connect to mariadb:
+
+```
+docker-compose run mariadb sh -c 'exec mysql -hmariadb -uroot -ppass'
+```
