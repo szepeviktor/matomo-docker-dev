@@ -1,8 +1,14 @@
 FROM piwik
 
+# install locales
+RUN apt-get update && apt-get install -y \
+    locales \
+    --no-install-recommends \
+    && sed -i 's/# //' /etc/locale.gen \
+    && locale-gen
+
 # install phantomjs
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
+RUN apt-get install -y --no-install-recommends \
            ca-certificates \
            bzip2 \
            libfontconfig \
@@ -11,7 +17,6 @@ RUN apt-get update \
 
 RUN set -x  \
     # Install official PhantomJS release
-    && apt-get update \
     && apt-get install -y --no-install-recommends \
            curl \
     && mkdir /tmp/phantomjs \
