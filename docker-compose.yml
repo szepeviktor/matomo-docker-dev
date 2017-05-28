@@ -15,8 +15,9 @@ services:
     entrypoint: /usr/src/dev-entrypoint.sh
   mariadb:
     image: mariadb
-    container_name: piwik-mariadb
     environment:
       MYSQL_ROOT_PASSWORD: pass
     volumes:
       - ./mariadb:/var/lib/mysql
+  redis:
+    image: redis:3-alpine
