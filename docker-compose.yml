@@ -3,21 +3,19 @@ services:
   piwik:
     build: .
     volumes:
-      - ${PIWIK_HOME}:/usr/src/piwik
+      - ${PIWIK_HOME}:/usr/src/piwik:cached
       - ./piwik.php.ini:/usr/local/etc/php/conf.d/piwik.php.ini
-      - ./dev-entrypoint.sh:/usr/src/dev-entrypoint.sh
     working_dir: /usr/src/piwik
     depends_on:
       - mariadb
     ports:
       - "3000:3000"
     command: php -S piwik:3000
-    entrypoint: /usr/src/dev-entrypoint.sh
   mariadb:
     image: mariadb
     environment:
       MYSQL_ROOT_PASSWORD: pass
     volumes:
-      - ./mariadb:/var/lib/mysql
+      - ./mariadb:/var/lib/mysql:delegated
   redis:
     image: redis:3-alpine
