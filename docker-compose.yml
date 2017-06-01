@@ -4,7 +4,7 @@ services:
     build: .
     volumes:
       - ${PIWIK_HOME}:/usr/src/piwik:cached
-      - ./piwik.php.ini:/usr/local/etc/php/conf.d/piwik.php.ini
+      - ./piwik.php.ini:/usr/local/etc/php/php.ini
     working_dir: /usr/src/piwik
     depends_on:
       - mariadb
