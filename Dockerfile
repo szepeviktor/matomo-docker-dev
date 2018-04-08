@@ -2,7 +2,7 @@ FROM piwik
 
 # install git + other deps
 RUN apt-get update && \
-    apt-get install software-properties-common python-software-properties php-pear git wget curl \
+    apt-get install software-properties-common python-software-properties git wget curl \
                     tcl tk openssl mysql-client -y --no-install-recommends
 
 # install locales
