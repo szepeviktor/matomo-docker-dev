@@ -1,3 +1,5 @@
 /mariadb/*
 !/mariadb/.gitkeep
-
+/environments/phps/
+/.env
+.idea/

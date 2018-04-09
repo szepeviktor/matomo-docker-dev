@@ -3,15 +3,19 @@ services:
   piwik:
     build: .
     volumes:
-      - ${PIWIK_HOME}:/usr/src/piwik:cached
-      - ./piwik.php.ini:/usr/local/etc/php/php.ini
+      - ${MATOMO_HOME}:/usr/src/piwik:cached
+      - ./entrypoint.sh:/home/root/entrypoint.sh
+      - ./environments/phps/php-$PHP_VERSION:/etc/my-php
     working_dir: /usr/src/piwik
     depends_on:
       - mariadb
       - mail
     ports:
       - "3000:3000"
+    environment:
+      - PHP_VERSION="$PHP_VERSION"
     command: php -S piwik:3000
+    entrypoint: /home/root/entrypoint.sh
   mail:
     image: namshi/smtp
   mariadb:
