@@ -24,5 +24,28 @@ services:
       MYSQL_ROOT_PASSWORD: pass
     volumes:
       - ./mariadb:/var/lib/mysql:delegated
+  trackerproxy:
+    image: php:7-apache
+    volumes:
+      - ${MATOMO_TRACKER_PROXY_HOME}:/var/www/html/
+    ports:
+      - "3002:80"
+    links:
+      - piwik
+  wordpress:
+    image: wordpress
+    ports:
+      - "3001:80"
+    volumes:
+      - ./wordpress:/var/www/html
+    environment:
+      - WORDPRESS_DB_HOST=mariadb
+      - WORDPRESS_DB_USER=root
+      - WORDPRESS_DB_PASSWORD=pass
+      - WORDPRESS_DB_NAME=wordpress
+      - WORDPRESS_TABLE_PREFIX=wp_
+    links:
+      - mariadb
+      - trackerproxy
   redis:
     image: redis:3-alpine
