@@ -1,6 +1,6 @@
 version: '2'
 services:
-  piwik:
+  matomo:
     build: .
     volumes:
       - ${MATOMO_HOME}:/usr/src/piwik:cached
@@ -14,7 +14,7 @@ services:
       - "3000:3000"
     environment:
       - PHP_VERSION="$PHP_VERSION"
-    command: php -S piwik:3000
+    command: php -S matomo:3000
     entrypoint: /home/root/entrypoint.sh
   mail:
     image: namshi/smtp
@@ -31,7 +31,7 @@ services:
     ports:
       - "3002:80"
     links:
-      - piwik
+      - matomo
   wordpress:
     image: wordpress
     ports:
@@ -49,3 +49,11 @@ services:
       - trackerproxy
   redis:
     image: redis:3-alpine
+  nginx-ssl-proxy:
+    image: danieldent/nginx-ssl-proxy
+    restart: always
+    environment:
+      UPSTREAM: matomo:3000
+      SERVERNAME: matomo
+    ports:
+      - "4000:443"
